@@ -1,0 +1,39 @@
+<p id="notice"><%= notice %></p>
+
+<h1>Seats</h1>
+
+<table id = "coconut">
+  <thead>
+    <tr>
+      <th>Flight</th>
+      <th>Name</th>
+      <th>Baggage</th>
+       <th>Seat Class ID</th>
+       <th>Price</th>
+       <th>Seat Type</th>
+       <th>Leg Room</th>
+      <th colspan="3">Actions</th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <% seats.each do |seat| %>
+      <tr>
+        <td><%= seat.flight_id %></td>
+        <td><%= seat.name %></td>
+        <td><%= seat.baggage %></td>
+        <td><%= SeatClass.where("id = ?", seat.seat_class_id).pluck("class_name").first %></td>
+        <td><%= SeatClass.where("id = ?", seat.seat_class_id).pluck("price").first %></td>
+        <td><%= SeatClass.where("id = ?", seat.seat_class_id).pluck("seat_type").first %></td>
+        <td><%= SeatClass.where("id = ?", seat.seat_class_id).pluck("leg_room").first %>&nbsp;&nbsp;Inches</td>
+        <td><%= link_to 'Show', seat %></td>
+        <td><%= link_to 'Edit', edit_seat_path(seat) %></td>
+        <td><%= link_to 'Destroy', seat, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+
+<br>
+
+<%= link_to 'New Seat', new_seat_path %>
